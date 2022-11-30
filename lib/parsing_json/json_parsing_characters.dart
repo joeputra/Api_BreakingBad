@@ -32,21 +32,48 @@ class _JsonParsingcharactersMapState extends State<JsonParsingcharactersMap> {
       body: Center(
         child: Container(
           child: FutureBuilder(
-            future: data,
+              future: data,
               builder: (context, AsyncSnapshot<CharacterList> snapshot) {
-            // ignore: unused_local_variable
-            List<Character> allCharacter;
-            if (snapshot.hasData) {
-              allCharacter = snapshot.data!.characters;
+                // ignore: unused_local_variable
+                List<Character> allCharacter;
+                if (snapshot.hasData) {
+                  allCharacter = snapshot.data!.characters;
 
-              return Text(allCharacter[0].name);
-            } else { 
-              // ignore: prefer_const_constructors
-              return CircularProgressIndicator();
-            }
-          }),
+                  return createListView(allCharacter, context); 
+                } else {
+                  // ignore: prefer_const_constructors
+                  return CircularProgressIndicator();
+                }
+              }),
         ),
       ),
+    );
+  }
+
+  Widget createListView(List<Character> data, BuildContext context) {
+    return Container(
+      child: ListView.builder(
+          itemCount: data.length,
+          itemBuilder: (context, int index) {
+            return Column(
+              children: [
+                Divider(
+                  height: 5.0,
+                ),
+                ListTile(
+                  title: Text("${data[index].name}"),
+                  subtitle: Text("${data[index].nickname}"),
+                  leading: Column(children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.blue,
+                      radius: 23,
+                      child: Text('${data[index].char_id}'),
+                    )
+                  ]),
+                )
+              ],
+            );
+          }),
     );
   }
 }
