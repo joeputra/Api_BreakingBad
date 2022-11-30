@@ -73,7 +73,7 @@ class _JsonparsingSimpleState extends State<JsonparsingSimple> {
                   CircleAvatar(
                     backgroundColor: Colors.black,
                     radius: 23,
-                    child: Text("${data[index]["status"]}"),
+                    child: Text("${data[index]["char_id"]}"),
                   )
                 ],
               ),
